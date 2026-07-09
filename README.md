@@ -167,6 +167,21 @@ governedSearch({ query: "test" }); // Throws PermissionError if denied
 
 Source: [`ts/`](./ts) | [npm package](https://www.npmjs.com/package/@correctover/ccs)
 
+## Go SDK
+
+```bash
+go get github.com/Correctover/ccs-sdk/go
+```
+
+```go
+rt := ccs.NewRuntime()
+governed := ccs.Govern(searchFn, "default", rt)
+result, err := governed(ccs.ToolInput{"query": "CCS standard"})
+// err = *PermissionError if denied — fn NEVER called
+```
+
+Source: [`go/`](./go)
+
 ## Repository Structure
 
 ```
@@ -175,12 +190,22 @@ ccs-sdk/
 │   ├── core.py       # Governance runtime
 │   ├── adapters.py   # CrewAI/AutoGen/LangGraph adapters
 │   └── mcp_server/   # MCP server (stdio transport)
-├── ts/               # TypeScript SDK
+├── ts/               # TypeScript SDK (npm: @correctover/ccs)
 │   ├── src/          # Source
 │   └── dist/         # Built output
-├── strict_9test.py   # 9-test strict verification suite
+├── go/               # Go SDK
+│   └── ccs/          # Core package
+├── strict_9test.py   # Python 9-test verification suite
 └── pyproject.toml
 ```
+
+## SDK Versions
+
+| SDK | Version | Package |
+|-----|---------|---------|
+| Python | 1.0.0 | `pip install ccs` |
+| TypeScript | 1.0.0 | `npm install @correctover/ccs` |
+| Go | 1.0.0 | `go get github.com/Correctover/ccs-sdk/go` |
 
 ## References
 
