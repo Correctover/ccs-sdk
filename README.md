@@ -123,6 +123,65 @@ P99:  15.0µs
 P999: 53.0µs
 ```
 
+## MCP Server
+
+CCS is available as a [Model Context Protocol](https://modelcontextprotocol.io) server, enabling any MCP-compatible agent (Claude Desktop, Cursor, Cline) to validate tool calls against CCS governance.
+
+```bash
+pip install ccs[mcp]
+python -m ccs.mcp_server
+```
+
+Configure in Claude Desktop:
+```json
+{
+  "mcpServers": {
+    "ccs": {
+      "command": "python",
+      "args": ["-m", "ccs.mcp_server"]
+    }
+  }
+}
+```
+
+### MCP Tools
+| Tool | Description |
+|------|-------------|
+| `ccs_govern` | Evaluate a tool call against a policy → allow/deny |
+| `ccs_status` | Runtime stats, policies, latency metrics |
+| `ccs_register_deny_rule` | Register custom deny rules by tool name/pattern |
+| `ccs_audit_log` | Recent governance audit traces |
+
+## TypeScript SDK
+
+```bash
+npm install @correctover/ccs
+```
+
+```typescript
+import { govern, GovernanceResult, CCSPolicy } from "@correctover/ccs";
+
+const governedSearch = govern(searchWeb, { policy: "default" });
+governedSearch({ query: "test" }); // Throws PermissionError if denied
+```
+
+Source: [`ts/`](./ts) | [npm package](https://www.npmjs.com/package/@correctover/ccs)
+
+## Repository Structure
+
+```
+ccs-sdk/
+├── ccs/              # Python SDK (core + adapters + MCP server)
+│   ├── core.py       # Governance runtime
+│   ├── adapters.py   # CrewAI/AutoGen/LangGraph adapters
+│   └── mcp_server/   # MCP server (stdio transport)
+├── ts/               # TypeScript SDK
+│   ├── src/          # Source
+│   └── dist/         # Built output
+├── strict_9test.py   # 9-test strict verification suite
+└── pyproject.toml
+```
+
 ## References
 
 - CCS v1.0 Standard: https://doi.org/10.5281/zenodo.21271910

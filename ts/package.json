@@ -1,0 +1,41 @@
+{
+  "name": "@correctover/ccs",
+  "version": "1.0.0",
+  "description": "CCS v1.0 — Synchronous interceptor governance for AI Agent frameworks. Structural fail-closed guarantee (CWE-636).",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --import tsx test/run.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "governance",
+    "security",
+    "conformance",
+    "mcp",
+    "fail-closed",
+    "ccs",
+    "correctover"
+  ],
+  "author": "Correctover Standards <wangguigui@correctover.com>",
+  "license": "CC-BY-4.0",
+  "homepage": "https://correctover.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Correctover/ccs-sdk.git",
+    "directory": "ts"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "tsx": "^4.7.0"
+  }
+}

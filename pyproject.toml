@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "ccs"
@@ -25,6 +25,9 @@ classifiers = [
 Homepage = "https://correctover.com"
 Paper = "https://doi.org/10.5281/zenodo.21271910"
 Standard = "https://github.com/Correctover/standards"
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0.0"]
 
 [tool.setuptools.packages.find]
 include = ["ccs*"]
