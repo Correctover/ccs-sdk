@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "ccs"
+version = "1.0.0"
+description = "Correctover Conformance Standard (CCS) v1.0 — Synchronous interceptor governance for AI Agent frameworks"
+readme = "README.md"
+license = {text = "CC BY 4.0"}
+authors = [{name = "Correctover Standards", email = "wangguigui@correctover.com"}]
+requires-python = ">=3.10"
+keywords = ["ai", "agent", "governance", "security", "conformance", "mcp"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Security",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://correctover.com"
+Paper = "https://doi.org/10.5281/zenodo.21271910"
+Standard = "https://github.com/Correctover/standards"
+
+[tool.setuptools.packages.find]
+include = ["ccs*"]
