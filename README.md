@@ -116,12 +116,15 @@ LangGraph Adapter: LCBaseTool.run intercepted → fail-closed ✅
 All adapters support install/uninstall lifecycle ✅
 ```
 
-Performance (10,000 iterations, decorator + policy evaluation):
+Performance (10,000 iterations, decorator + policy evaluation, 2026-07-09):
 ```
-P50:  6.2µs
-P99:  15.0µs
-P999: 53.0µs
+P50:  0.13µs
+P95:  0.15µs
+P99:  0.22µs
+Avg:  0.14µs
+Ops/sec: 7,691,905
 ```
+Full benchmark report: [docs/performance_test_20260709.md](docs/performance_test_20260709.md)
 
 ## MCP Server
 
