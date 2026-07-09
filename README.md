@@ -155,17 +155,17 @@ Configure in Claude Desktop:
 ## TypeScript SDK
 
 ```bash
-npm install @correctover/ccs
+npm install correctover-ccs
 ```
 
 ```typescript
-import { govern, GovernanceResult, CCSPolicy } from "@correctover/ccs";
+import { govern, GovernanceResult, CCSPolicy } from "correctover-ccs";
 
 const governedSearch = govern(searchWeb, { policy: "default" });
 governedSearch({ query: "test" }); // Throws PermissionError if denied
 ```
 
-Source: [`ts/`](./ts) | [npm package](https://www.npmjs.com/package/@correctover/ccs)
+Source: [`ts/`](./ts) | [npm package](https://www.npmjs.com/package/correctover-ccs)
 
 ## Go SDK
 
@@ -190,7 +190,7 @@ ccs-sdk/
 │   ├── core.py       # Governance runtime
 │   ├── adapters.py   # CrewAI/AutoGen/LangGraph adapters
 │   └── mcp_server/   # MCP server (stdio transport)
-├── ts/               # TypeScript SDK (npm: @correctover/ccs)
+├── ts/               # TypeScript SDK (npm: correctover-ccs)
 │   ├── src/          # Source
 │   └── dist/         # Built output
 ├── go/               # Go SDK
@@ -204,7 +204,7 @@ ccs-sdk/
 | SDK | Version | Package |
 |-----|---------|---------|
 | Python | 1.0.0 | `pip install ccs` |
-| TypeScript | 1.0.0 | `npm install @correctover/ccs` |
+| TypeScript | 1.0.0 | `npm install correctover-ccs` |
 | Go | 1.0.0 | `go get github.com/Correctover/ccs-sdk/go` |
 
 ## References

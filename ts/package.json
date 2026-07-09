@@ -1,5 +1,5 @@
 {
-  "name": "@correctover/ccs",
+  "name": "correctover-ccs",
   "version": "1.0.0",
   "description": "CCS v1.0 — Synchronous interceptor governance for AI Agent frameworks. Structural fail-closed guarantee (CWE-636).",
   "main": "dist/index.js",
