@@ -18,7 +18,7 @@ CCS decorators:  governance_crash → exception caught → tool NEVER CALLED ✅
 ## Installation
 
 ```bash
-pip install ccs
+pip install correctover-ccs
 ```
 
 ## Quick Start (3 lines)
@@ -128,7 +128,7 @@ P999: 53.0µs
 CCS is available as a [Model Context Protocol](https://modelcontextprotocol.io) server, enabling any MCP-compatible agent (Claude Desktop, Cursor, Cline) to validate tool calls against CCS governance.
 
 ```bash
-pip install ccs[mcp]
+pip install correctover-ccs[mcp]
 python -m ccs.mcp_server
 ```
 
@@ -203,7 +203,7 @@ ccs-sdk/
 
 | SDK | Version | Package |
 |-----|---------|---------|
-| Python | 1.0.0 | `pip install ccs` |
+| Python | 1.0.0 | `pip install correctover-ccs` |
 | TypeScript | 1.0.0 | `npm install correctover-ccs` |
 | Go | 1.0.0 | `go get github.com/Correctover/ccs-sdk/go` |
 
