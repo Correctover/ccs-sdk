@@ -264,3 +264,116 @@ def govern(policy: str = "default", config: Optional[CCSConfig] = None):
         
         return wrapper
     return decorator
+
+
+def async_govern(policy: str = "default", config: Optional[CCSConfig] = None):
+    """
+    CCS governance decorator for async functions — asynchronous interceptor pattern.
+    
+    Usage:
+        @async_govern(policy="default")
+        async def my_async_tool(args: dict) -> str:
+            return "result"
+    
+    Guarantee:
+        If governance evaluation raises ANY exception, the decorated
+        async function is NEVER called. This provides structural fail-closed
+        behavior for async tool calls.
+    
+    Example:
+        from ccs import async_govern
+        
+        @async_govern(policy="compliance")
+        async def fetch_data(url: str):
+            # This function will NEVER execute if governance denies
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as response:
+                    return await response.text()
+    """
+    import asyncio
+    
+    def decorator(func: Callable) -> Callable:
+        @functools.wraps(func)
+        async def wrapper(*args, **kwargs):
+            runtime = get_runtime(config)
+            
+            # Build tool input for governance evaluation
+            tool_input = {"args": args, "kwargs": kwargs}
+            
+            # SYNCHRONOUS INTERCEPTION before async execution
+            result, latency_us = runtime.evaluate(
+                tool_name=func.__name__,
+                tool_input=tool_input,
+                policy_name=policy,
+            )
+            
+            # FAIL-CLOSED: Only proceed if explicitly ALLOWED
+            if result != GovernanceResult.ALLOW:
+                raise PermissionError(
+                    f"CCS governance DENIED async tool '{func.__name__}' "
+                    f"(policy={policy}, latency={latency_us}µs)"
+                )
+            
+            # Only reached if governance explicitly ALLOWED
+            return await func(*args, **kwargs)
+        
+        # Attach CCS metadata
+        wrapper.__ccs_governed__ = True
+        wrapper.__ccs_policy__ = policy
+        wrapper.__ccs_runtime__ = get_runtime(config)
+        wrapper.__ccs_async__ = True
+        
+        return wrapper
+    return decorator
+
+
+def generator_govern(policy: str = "default", config: Optional[CCSConfig] = None):
+    """
+    CCS governance decorator for generator functions — intercept before each yield.
+    
+    Usage:
+        @generator_govern(policy="default")
+        def my_streaming_tool(args: dict):
+            for chunk in data:
+                yield chunk
+    
+    Guarantee:
+        Governance is evaluated ONCE before iteration begins. If governance
+        denies or raises, the generator function is NEVER invoked.
+    
+    Note:
+        For per-yield governance, implement custom logic inside the generator.
+    """
+    def decorator(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            runtime = get_runtime(config)
+            
+            # Build tool input for governance evaluation
+            tool_input = {"args": args, "kwargs": kwargs}
+            
+            # Evaluate governance BEFORE generator starts
+            result, latency_us = runtime.evaluate(
+                tool_name=func.__name__,
+                tool_input=tool_input,
+                policy_name=policy,
+            )
+            
+            # FAIL-CLOSED: Only proceed if explicitly ALLOWED
+            if result != GovernanceResult.ALLOW:
+                raise PermissionError(
+                    f"CCS governance DENIED generator '{func.__name__}' "
+                    f"(policy={policy}, latency={latency_us}µs)"
+                )
+            
+            # Governance passed, iterate generator
+            yield from func(*args, **kwargs)
+        
+        # Attach CCS metadata
+        wrapper.__ccs_governed__ = True
+        wrapper.__ccs_policy__ = policy
+        wrapper.__ccs_runtime__ = get_runtime(config)
+        wrapper.__ccs_generator__ = True
+        
+        return wrapper
+    return decorator

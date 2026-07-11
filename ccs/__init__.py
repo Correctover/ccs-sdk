@@ -1,31 +1,32 @@
 """
-Correctover Conformance Standard (CCS) v1.0 — Python SDK
-
-Synchronous interceptor-based governance for AI Agent frameworks.
-Eliminates architectural fail-open bypasses inherent to observer-pattern hooks.
-
-Usage:
-    from ccs import govern
-    
-    @govern(policy="default")
-    def my_tool(args):
-        ...
+CCS (Correctover Conformance Standard) v1.1
+Synchronous and asynchronous interceptor governance for AI Agent frameworks.
+Fail-closed by design.
 """
 
-__version__ = "1.0.0"
-__author__ = "Correctover Standards"
+from ccs.core import (
+    CCSConfig,
+    CCSPolicy,
+    CCSRuntime,
+    DefaultPolicy,
+    GovernanceResult,
+    GovernanceTrace,
+    get_runtime,
+    govern,
+    async_govern,
+    generator_govern,
+)
 
-from ccs.core import govern, GovernanceResult, CCSConfig, CCSPolicy, CCSRuntime, get_runtime
-from ccs.adapters import crewai_adapter, autogen_adapter, langgraph_adapter
-
+__version__ = "1.1.0"
 __all__ = [
-    "govern",
-    "GovernanceResult", 
     "CCSConfig",
-    "CCSPolicy",
+    "CCSPolicy", 
     "CCSRuntime",
+    "DefaultPolicy",
+    "GovernanceResult",
+    "GovernanceTrace",
     "get_runtime",
-    "crewai_adapter",
-    "autogen_adapter", 
-    "langgraph_adapter",
+    "govern",
+    "async_govern",
+    "generator_govern",
 ]
