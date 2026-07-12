@@ -2,7 +2,7 @@
 
 All notable changes to the CCS SDK are documented in this file.
 
-## [3.1.0] - 2026-07-12
+## [4.0.0] - 2026-07-12
 
 ### Added
 - `async_govern` decorator for async framework governance (LangGraph, AutoGen async)
