@@ -7,7 +7,7 @@ name = "correctover-ccs"
 version = "3.1.0"
 description = "Correctover Conformance Standard (CCS) v1.0 — Synchronous interceptor governance for AI Agent frameworks"
 readme = "README.md"
-license = {text = "CC BY 4.0"}
+license = {text = "MIT"}
 authors = [{name = "Correctover Standards", email = "wangguigui@correctover.com"}]
 requires-python = ">=3.10"
 keywords = ["ai", "agent", "governance", "security", "conformance", "mcp"]
