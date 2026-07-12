@@ -1,7 +1,7 @@
 {
   "name": "correctover-ccs",
   "version": "2.0.0",
-  "description": "CCS v3.1 \u2014 Agent runtime verification protocol with synchronous interceptor governance and structural fail-closed guarantee (CWE-636).",
+  "description": "CCS v4.0 — Agent runtime verification protocol with synchronous interceptor governance and structural fail-closed guarantee (CWE-636).",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,7 +21,7 @@
     "correctover"
   ],
   "author": "Correctover Standards <wangguigui@correctover.com>",
-  "license": "CC-BY-4.0",
+  "license": "MIT",
   "homepage": "https://correctover.com",
   "repository": {
     "type": "git",
@@ -35,7 +35,8 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "tsx": "^4.7.0"
+    "@types/node": "^26.1.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0"
   }
 }
