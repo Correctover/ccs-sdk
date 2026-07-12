@@ -96,7 +96,7 @@ def ccs_status() -> dict:
     # Add registered policies info
     stats["registered_policies"] = list(runtime.policies.keys())
     stats["total_traces"] = len(runtime.traces)
-    stats["version"] = "1.0.0"
+    stats["version"] = "3.1.0"
     stats["standard"] = "CCS v1.0"
     stats["doi"] = "10.5281/zenodo.21271910"
 

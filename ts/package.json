@@ -1,7 +1,7 @@
 {
   "name": "correctover-ccs",
-  "version": "1.0.0",
-  "description": "CCS v1.0 — Synchronous interceptor governance for AI Agent frameworks. Structural fail-closed guarantee (CWE-636).",
+  "version": "1.1.0",
+  "description": "CCS v3.1 \u2014 Agent runtime verification protocol with synchronous interceptor governance and structural fail-closed guarantee (CWE-636).",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
