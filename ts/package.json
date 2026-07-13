@@ -1,6 +1,6 @@
 {
   "name": "correctover-ccs",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "CCS v4.0 \u2014 Agent runtime verification protocol with synchronous interceptor governance and structural fail-closed guarantee (CWE-636).",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
