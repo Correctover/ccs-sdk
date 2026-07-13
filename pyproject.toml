@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "correctover-ccs"
-version = "4.0.0"
+version = "4.0.1"
 description = "Correctover Conformance Standard (CCS) v4.0 — Synchronous interceptor governance for AI Agent frameworks"
 readme = "README.md"
 license = {text = "MIT"}

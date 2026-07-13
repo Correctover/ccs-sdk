@@ -17,7 +17,7 @@ from ccs.core import (
     generator_govern,
 )
 
-__version__ = "4.0.0"
+__version__ = "4.0.1"
 __all__ = [
     "CCSConfig",
     "CCSPolicy", 
