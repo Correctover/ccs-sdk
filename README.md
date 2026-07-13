@@ -206,9 +206,9 @@ ccs-sdk/
 
 | SDK | Version | Package |
 |-----|---------|---------|
-| Python | 1.0.0 | `pip install correctover-ccs` |
-| TypeScript | 1.0.0 | `npm install correctover-ccs` |
-| Go | 1.0.0 | `go get github.com/Correctover/ccs-sdk/go` |
+| Python | 4.0.0 | `pip install correctover-ccs` |
+| TypeScript | 4.0.0 | `npm install correctover-ccs` |
+| Go | 4.0.0 | `go get github.com/Correctover/ccs-sdk/go` |
 
 ## References
 

@@ -1,5 +1,5 @@
 """
-CCS (Correctover Conformance Standard) v3.1
+CCS (Correctover Conformance Standard) v4.0
 Synchronous and asynchronous interceptor governance for AI Agent frameworks.
 Fail-closed by design.
 """
