@@ -13,13 +13,14 @@ All notable changes to the CCS SDK are documented in this file.
 - Framework adapters: CrewAI, AutoGen, LangGraph
 
 ### Changed
-- Unified version numbering across Python (3.1.0), Go (3.1.0), TypeScript (1.1.0)
+- Unified version numbering to 4.0.0 across all SDKs: Python, Go, TypeScript, npm
 - License unified to MIT across all components
 - Removed node_modules from git tracking (150+ files)
 - Updated .gitignore rules
 
 ### Fixed
 - License inconsistency between LICENSE file (MIT) and pyproject.toml (CC BY 4.0)
+- CHANGELOG version references aligned to 4.0.0
 
 ## [3.0.0] - 2026-07-09
 
