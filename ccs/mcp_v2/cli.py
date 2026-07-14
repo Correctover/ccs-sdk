@@ -5,7 +5,6 @@ Usage:
     python -m ccs.mcp_v2.cli /path/to/mcp-server [--json] [--name my-server]
 """
 
-import sys
 import json
 import argparse
 from .detector import MCPv2Detector

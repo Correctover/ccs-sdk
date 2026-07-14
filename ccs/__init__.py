@@ -20,7 +20,7 @@ from ccs.core import (
 __version__ = "4.0.1"
 __all__ = [
     "CCSConfig",
-    "CCSPolicy", 
+    "CCSPolicy",
     "CCSRuntime",
     "DefaultPolicy",
     "GovernanceResult",

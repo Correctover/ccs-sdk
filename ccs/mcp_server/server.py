@@ -23,7 +23,7 @@ Or configure in Claude Desktop:
 
 from mcp.server.fastmcp import FastMCP
 from ccs.core import (
-    CCSConfig, CCSPolicy, GovernanceResult,
+    CCSPolicy, GovernanceResult,
     get_runtime,
 )
 from ccs import __version__

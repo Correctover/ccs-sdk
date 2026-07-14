@@ -100,7 +100,7 @@ class MCPv2Detector:
                 r'from\s+"@modelcontextprotocol/sdk',
                 r'require\(["\']@modelcontextprotocol/sdk',
             ],
-            "migration": "Migrate to @modelcontextprotocol/server and @modelcontextprotocol/client (v2 split packages)",
+            "migration": "Migrate to @modelcontextprotocol/server and @modelcontextprotocol/client (v2 split packages)",  # noqa: E501
             "file_types": [".ts", ".js", ".json", ".mjs"],
         },
         "MV2-002": {
@@ -113,7 +113,7 @@ class MCPv2Detector:
                 r'\.initialize\(\)',
                 r'initialize.*initialized',
             ],
-            "migration": "Remove session management; protocol is now stateless. Use server/discover for capabilities.",
+            "migration": "Remove session management; protocol is now stateless. Use server/discover for capabilities.",  # noqa: E501
             "file_types": [".ts", ".js", ".py", ".go", ".cs"],
         },
         "MV2-003": {
@@ -137,7 +137,7 @@ class MCPv2Detector:
                 r'SamplingCapability',
                 r'server\.sampling',
             ],
-            "migration": "Replace with direct LLM provider API calls or InputRequiredResult pattern.",
+            "migration": "Replace with direct LLM provider API calls or InputRequiredResult pattern.",  # noqa: E501
             "file_types": [".ts", ".js", ".py", ".go"],
         },
         "MV2-005": {
@@ -150,7 +150,7 @@ class MCPv2Detector:
                 r'server\.logging',
                 r'\.log\(".*",\s*LoggingLevel',
             ],
-            "migration": "Replace with stderr (stdio transports) or OpenTelemetry (structured observability).",
+            "migration": "Replace with stderr (stdio transports) or OpenTelemetry (structured observability).",  # noqa: E501
             "file_types": [".ts", ".js", ".py", ".go"],
         },
         "MV2-006": {
@@ -160,7 +160,7 @@ class MCPv2Detector:
                 r'-32002',
                 r'32002',
             ],
-            "migration": "Replace -32002 with standard JSON-RPC -32602 (Invalid Params) for resource-not-found errors.",
+            "migration": "Replace -32002 with standard JSON-RPC -32602 (Invalid Params) for resource-not-found errors.",  # noqa: E501
             "file_types": [".ts", ".js", ".py", ".go", ".cs"],
         },
         "MV2-007": {
@@ -173,7 +173,7 @@ class MCPv2Detector:
                 r'sse.*transport',
                 r'SSE.*Transport',
             ],
-            "migration": "Replace SSE transport with Streamable HTTP transport. Single endpoint, stateless.",
+            "migration": "Replace SSE transport with Streamable HTTP transport. Single endpoint, stateless.",  # noqa: E501
             "file_types": [".ts", ".js", ".py", ".go"],
         },
         "MV2-008": {
@@ -186,7 +186,7 @@ class MCPv2Detector:
                 r'session.*store',
                 r'sessionStore',
             ],
-            "migration": "Remove session affinity. Stateless protocol allows round-robin load balancing.",
+            "migration": "Remove session affinity. Stateless protocol allows round-robin load balancing.",  # noqa: E501
             "file_types": [".ts", ".js", ".py", ".go", ".yaml", ".yml", ".json"],
         },
         "MV2-009": {
@@ -200,7 +200,7 @@ class MCPv2Detector:
                 r'"mcp":\s*"1\.',
                 r'mcp\[.*\]==1\.',
             ],
-            "migration": "Upgrade to mcp>=2.0.0. FastMCP→MCPServer rename. Pin: mcp==2.0.0b1 for beta.",
+            "migration": "Upgrade to mcp>=2.0.0. FastMCP→MCPServer rename. Pin: mcp==2.0.0b1 for beta.",  # noqa: E501
             "file_types": [".py", ".toml", ".txt", ".cfg", ".lock"],
         },
         "MV2-010": {
@@ -209,7 +209,7 @@ class MCPv2Detector:
             "patterns": [
                 r'_meta',
             ],
-            "migration": "Ensure _meta fields propagate clientInfo, trace context in every request/response.",
+            "migration": "Ensure _meta fields propagate clientInfo, trace context in every request/response.",  # noqa: E501
             "file_types": [".ts", ".js", ".py", ".go"],
             "negative": True,  # Flag if NOT found
         },
@@ -240,7 +240,7 @@ class MCPv2Detector:
         )
         return result
 
-    def _scan_rule(self, rule_id: str, rule: Dict[str, Any]) -> None:
+    def _scan_rule(self, rule_id: str, rule: Dict[str, Any]) -> None:  # noqa: C901
         """Scan all matching files for a single rule."""
         severity = rule["severity"]
         patterns = rule["patterns"]
@@ -270,8 +270,8 @@ class MCPv2Detector:
                     rule_id=rule_id,
                     severity=severity,
                     title=title,
-                    description=f"Pattern not found in any source file. "
-                                f"This may indicate missing stateless request handling.",
+                    description="Pattern not found in any source file. "
+                                "This may indicate missing stateless request handling.",
                     file_path="(none)",
                     line_number=0,
                     migration_path=migration,
@@ -301,7 +301,7 @@ class MCPv2Detector:
 
     def _find_files(self, extensions: List[str]) -> List[Path]:
         """Find all files with matching extensions, skipping common non-source dirs."""
-        skip = {"node_modules", ".git", "__pycache__", "dist", "build", ".venv", "venv", "mcp_v2"}  # mcp_v2 excluded to avoid self-detection
+        skip = {"node_modules", ".git", "__pycache__", "dist", "build", ".venv", "venv", "mcp_v2"}  # mcp_v2 excluded to avoid self-detection  # noqa: E501
         result = []
         for root, dirs, files in os.walk(self.target_path):
             dirs[:] = [d for d in dirs if d not in skip]
@@ -310,7 +310,7 @@ class MCPv2Detector:
                     result.append(Path(root) / fname)
         return result
 
-    def _detect_sdk_version(self) -> Optional[str]:
+    def _detect_sdk_version(self) -> Optional[str]:  # noqa: C901
         """Try to detect MCP SDK version from package manifests."""
         # Check package.json for TypeScript
         pkg_json = self.target_path / "package.json"
