@@ -20,4 +20,4 @@ Breaking changes detected:
 from .detector import MCPv2Detector, DetectionResult
 
 __all__ = ["MCPv2Detector", "DetectionResult"]
-__version__ = "4.0.0"
+__version__ = "4.0.1"
