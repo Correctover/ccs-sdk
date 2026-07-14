@@ -14,9 +14,13 @@ import functools
 import time
 import hashlib
 import json
+import logging
+from collections import deque
 from typing import Any, Callable, Dict, List, Optional, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
+
+logger = logging.getLogger(__name__)
 
 
 class GovernanceResult(Enum):
@@ -116,8 +120,9 @@ class CCSRuntime:
     def __init__(self, config: Optional[CCSConfig] = None):
         self.config = config or CCSConfig()
         self.policies: Dict[str, CCSPolicy] = {}
-        self.traces: List[GovernanceTrace] = []
-        self._latencies: List[float] = []
+        # Bounded deques prevent unbounded memory growth in long-running processes
+        self.traces: deque = deque(maxlen=100_000)
+        self._latencies: deque = deque(maxlen=100_000)
         
         # Register default policy
         self.policies["default"] = DefaultPolicy(self.config)
@@ -178,6 +183,13 @@ class CCSRuntime:
                 detail=detail,
             )
             self.traces.append(trace)
+
+        # Log DENY events for production observability
+        if result != GovernanceResult.ALLOW:
+            logger.warning(
+                "CCS DENY | tool=%s policy=%s latency=%.2fµs detail=%s",
+                tool_name, policy_name, latency_us, detail,
+            )
         
         return result, round(latency_us, 2)
     

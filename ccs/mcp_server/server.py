@@ -26,6 +26,7 @@ from ccs.core import (
     CCSConfig, CCSPolicy, GovernanceResult,
     get_runtime,
 )
+from ccs import __version__
 
 # ============================================================
 # MCP Server
@@ -96,7 +97,7 @@ def ccs_status() -> dict:
     # Add registered policies info
     stats["registered_policies"] = list(runtime.policies.keys())
     stats["total_traces"] = len(runtime.traces)
-    stats["version"] = "4.0.0"
+    stats["version"] = __version__
     stats["standard"] = "CCS v1.0"
     stats["doi"] = "10.5281/zenodo.21271910"
 
