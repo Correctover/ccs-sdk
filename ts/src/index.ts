@@ -1,11 +1,12 @@
 /**
- * Correctover Conformance Standard (CCS) v4.0 — TypeScript SDK
+ * Correctover Conformance Standard (CCS) v4.1 — TypeScript SDK
  * 
  * Synchronous interceptor-based governance for AI Agent frameworks.
  * Eliminates architectural fail-open bypasses inherent to observer-pattern hooks.
  * 
  * Usage:
  *   import { govern, GovernanceResult, CCSRuntime, MCPv2Detector } from "correctover-ccs";
+ *   import { EnvProtectionProvider, MCPSecurityValidator, CompositeGuardrailProvider } from "correctover-ccs";
  *   
  *   const governedFn = govern(myToolFunction, { policy: "default" });
  *   governedFn(args); // Throws PermissionError if governance denies
@@ -43,6 +44,45 @@ export {
 export { MCPv2Detector, Severity } from "./mcp_v2";
 export type { Finding, DetectionResult, DetectionSummary, RuleDefinition } from "./mcp_v2";
 
-export const VERSION = "4.0.1";
-export const STANDARD = "CCS v4.0";
+// Guardrail module (v4.1.0)
+export {
+  // Decision & Envelope
+  canonicalJson,
+  computeDecisionId,
+  verifyDecisionIntegrity,
+  isDecisionExpired,
+  type GuardrailDecisionV1,
+  type ActionEnvelopeV1,
+  type ToolCallContext,
+  
+  // Provider interface
+  type GuardrailProvider,
+  
+  // Built-in providers
+  AllowAllGuardrailProvider,
+  DenyAllGuardrailProvider,
+  ToolListGuardrailProvider,
+  type ToolListMode,
+  CKGGuardrailProvider,
+  type CKGPredicate,
+  EnvProtectionProvider,
+  CompositeGuardrailProvider,
+  type CompositeMode,
+  
+  // Audit
+  AuditTrail,
+  type AuditEntry,
+  
+  // MCP Security
+  MCPSecurityValidator,
+  type MCPFinding,
+  type MCPScanResult,
+  
+  // Integration helpers
+  makeGuardrailHook,
+  detectMissingGuardrail,
+} from "./guardrail";
+
+export const VERSION = "4.1.0";
+export const STANDARD = "CCS v4.1";
 export const DOI = "10.5281/zenodo.21271910";
