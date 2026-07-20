@@ -1,5 +1,5 @@
 """
-CCS (Correctover Conformance Standard) v4.0
+CCS (Correctover Conformance Standard) v4.1
 Synchronous and asynchronous interceptor governance for AI Agent frameworks.
 Fail-closed by design.
 """
@@ -17,7 +17,27 @@ from ccs.core import (
     generator_govern,
 )
 
-__version__ = "4.0.1"
+from ccs.guardrail import (
+    canonical_json,
+    compute_decision_id,
+    GuardrailDecisionV1,
+    ActionEnvelopeV1,
+    ToolCallContext,
+    GuardrailProvider,
+    AllowAllGuardrailProvider,
+    DenyAllGuardrailProvider,
+    ToolListGuardrailProvider,
+    CKGGuardrailProvider,
+    EnvProtectionProvider,
+    CompositeGuardrailProvider,
+    AuditTrail,
+    GuardrailContext,
+    make_guardrail_hook,
+    detect_missing_guardrail,
+    MCPSecurityValidator,
+)
+
+__version__ = "4.1.0"
 __all__ = [
     "CCSConfig",
     "CCSPolicy",
@@ -29,4 +49,22 @@ __all__ = [
     "govern",
     "async_govern",
     "generator_govern",
+    "canonical_json",
+    "compute_decision_id",
+    "GuardrailDecisionV1",
+    "ActionEnvelopeV1",
+    "ToolCallContext",
+    "GuardrailProvider",
+    "AllowAllGuardrailProvider",
+    "DenyAllGuardrailProvider",
+    "ToolListGuardrailProvider",
+    "CKGGuardrailProvider",
+    "EnvProtectionProvider",
+    "CompositeGuardrailProvider",
+    "AuditTrail",
+    "GuardrailContext",
+    "make_guardrail_hook",
+    "detect_missing_guardrail",
+    "MCPSecurityValidator",
 ]
+
