@@ -19,7 +19,7 @@ import (
 
 // Version constants
 const (
-	Version  = "4.0.1"
+	Version  = "4.1.0"
 	Standard = "CCS v1.0"
 	DOI      = "10.5281/zenodo.21271910"
 )
