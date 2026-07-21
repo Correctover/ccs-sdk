@@ -1,7 +1,7 @@
 # 🏴‍☠️ Correctover 赏金狩猎对账 Ledger
 
 > **All bounty submissions across all agents and channels — single source of truth.**
-> Last updated: 2026-07-14T13:00 CST
+> Last updated: 2026-07-21T15:00 CST
 > Maintainer: Correctover Agent (auto-sync) + Manual entries
 
 ---
@@ -10,22 +10,23 @@
 
 | Channel | Submissions | Status | Expected Reward | Actual |
 |---------|------------|--------|----------------|--------|
-| ZDI | 50 | OPEN (triage ~30d) | ~$14,000 | $0 |
-| HackerOne | 2 | CLOSED → need redirect | — | $0 |
+| ZDI | 52 | OPEN (triage ~30d) | ~$14,000+ | $0 |
+| HackerOne | 3 | 2 CLOSED + 1 ACTIVE (#3878033) | — | $0 |
 | GitHub Advisory | 4 | Under Review | $20K-$60K | $0 |
 | huntr.dev | 2+ | Under Review | $500-$5K | $0 |
-| MSRC | 6+ (email) | Under Review | $10K-$50K/each | $0 |
+| MSRC | 8 (email) | Under Review | $10K-$50K/each | $0 |
 | 阿里云ASRC | 6 (email) | Under Review | TBD | $0 |
 | Apple | 1 (portal) | Under Review | TBD | $0 |
-| **TOTAL** | **71+** | | **~$54K-$200K+** | **$0** |
+| **TOTAL** | **76+** | | **~$54K-$200K+** | **$0** |
 
 ---
 
 ## 📋 Detailed Ledger
 
-### 1. ZDI — 50 Cases (Correctover0001 ~ Correctover0050)
-**提交日期**: 2026-07-12 | **状态**: 全部 OPEN | **排他期**: ~30天
+### 1. ZDI — 52 Cases (Correctover0001 ~ Correctover0052)
+**提交日期**: 2026-07-12 (50 cases) + 2026-07-21 (2 cases) | **状态**: 全部 OPEN | **排他期**: ~30天
 
+#### Original 50 Cases (2026-07-12)
 | Case | 目标 | 类型 | CVSS |
 |------|------|------|------|
 | 0001 | Host Root FS Mount RCE | RCE | 9.8 |
@@ -79,29 +80,34 @@
 | 0049 | AutoGen CaptainAgent | RCE | 9.8 |
 | 0050 | CrewAI MCP STDIO | Command Injection | 9.8 |
 
-**漏洞类型分布**: Symlink Write(12) | Path Traversal(10) | SSRF(7) | Cmd Injection(6) | File Write(5) | SQL/NoSQL(3) | RCE(2) | Other(5)
+#### New ZDI Cases (2026-07-21)
+| Case | 目标 | 类型 | CVSS | 提交时间 | 备注 |
+|------|------|------|------|---------|------|
+| 0051 | Dify P1-PATH (Apollo Config Path Traversal) | Path Traversal | 9.8 | 2026-07-21 | Apollo config source allows arbitrary file read |
+| 0052 | FastMCP ENV-LEAK | Information Disclosure | 7.0 | 2026-07-21 | Full env vars passed to subprocesses |
+
+**漏洞类型分布 (52 cases)**: Symlink Write(12) | Path Traversal(11) | SSRF(7) | Cmd Injection(6) | File Write(5) | SQL/NoSQL(3) | RCE(2) | Information Disclosure(2) | Other(4)
 
 ---
 
-### 2. HackerOne (Anthropic)
+### 2. HackerOne
 
-| Report ID | 目标 | 状态 | 备注 |
-|-----------|------|------|------|
-| #3859881 | Anthropic MCP Server Path Traversal + Unsanctioned Tool Exec | ❌ CLOSED (N/A) | H1说第三方MCP走GitHub Advisory，不走Anthropic H1 |
-| #3859936 | Anthropic MCP DNS Rebinding | ❌ CLOSED (Duplicate) | 与#3859881重复判定 |
-
-**⚠️ ACTION**: 两个报告都需改道 GitHub Security Advisories 提交给 MCP Python SDK 仓库维护者。
+| Report ID | 目标 | 漏洞 | 状态 | 备注 |
+|-----------|------|------|------|------|
+| #3859881 | Anthropic MCP Server | Path Traversal + Unsanctioned Tool Exec | ❌ CLOSED (N/A) | H1: third-party MCP -> GitHub Advisory |
+| #3859936 | Anthropic MCP | DNS Rebinding | ❌ CLOSED (Duplicate) | Same root cause as #3859881 |
+| **#3878033** | **MCP Python SDK readOnlyHint Bypass** | **Protocol-level design flaw** | **✅ ACTIVE** | **87 instances/6 frameworks, MSRC confirmed, ZDI submitted. CVSS 7.5** |
 
 ---
 
 ### 3. GitHub Security Advisories
 
-| Advisory/Issue | 目标 | 漏洞 | CVSS | 状态 | 响应 |
-|---------------|------|------|------|------|------|
-| BerriAI/litellm #32862 | LiteLLM | Guardrail SSRF (sandbox不防SSRF，可访问169.254.169.254) | 8.6 | Under Review | ✅ "Adding external security to take a look" |
-| ckreiling/mcp-server-docker #53 | Docker MCP | STDIO Cmd Injection → RCE + HTTP Header Injection → SSRF | 9.3/9.8 | Under Review | — |
-| CrewAIInc/crewAI #3073 | CrewAI AG2 | eval() RCE (沙箱逃逸) | 9.8 | Under Review | — |
-| run-llama/llama_index #22296 | LlamaIndex | Pickle RCE (模型加载任意代码执行) | 9.8 | Under Review | — |
+| Advisory/Issue | 目标 | 漏洞 | CVSS | 状态 |
+|---------------|------|------|------|------|
+| BerriAI/litellm #32862 | LiteLLM | Guardrail SSRF | 8.6 | Under Review |
+| ckreiling/mcp-server-docker #53 | Docker MCP | Cmd Injection + SSRF | 9.3/9.8 | Under Review |
+| CrewAIInc/crewAI #3073 | CrewAI AG2 | eval() RCE | 9.8 | Under Review |
+| run-llama/llama_index #22296 | LlamaIndex | Pickle RCE | 9.8 | Under Review |
 
 ---
 
@@ -114,83 +120,101 @@
 
 ---
 
-### 5. MSRC (Microsoft) — 邮件提交 security@microsoft.com
+### 5. MSRC (Microsoft) — Email to security@microsoft.com
 
-| 报告 | 目标 | 漏洞 | 提交方式 | 状态 |
-|------|------|------|---------|------|
-| Azure MCP Kusto SSRF | Azure MCP Server | SSRF + Azure AD Token Theft | Email | Under Review |
-| Azure MCP Multi-Vuln | Azure MCP Server | SSRF + SQL Injection + Credential Leakage | Email | Under Review |
-| Foundry Service SSRF | Azure MCP Foundry | SSRF (CVSS 9.1) | Email | Under Review |
-| PostgreSQL SQL Injection | Azure MCP Server | SQL Injection | Email | Under Review |
-| Connection String Injection | Azure MCP Server | Injection → SSRF | Email | Under Review |
-| Cosmos DB NoSQL Injection | Azure MCP Server | NoSQL Injection | Email | Under Review |
+#### Batch 1 (2026-07-xx)
+| 报告 | 目标 | 漏洞 | 状态 |
+|------|------|------|------|
+| Azure MCP Kusto SSRF | Azure MCP Server | SSRF + Azure AD Token Theft | Under Review |
+| Azure MCP Multi-Vuln | Azure MCP Server | SSRF + SQL Injection + Credential Leakage | Under Review |
+| Foundry Service SSRF | Azure MCP Foundry | SSRF (CVSS 9.1) | Under Review |
+| PostgreSQL SQL Injection | Azure MCP Server | SQL Injection | Under Review |
+| Connection String Injection | Azure MCP Server | Injection -> SSRF | Under Review |
+| Cosmos DB NoSQL Injection | Azure MCP Server | NoSQL Injection | Under Review |
 
-**Pipeline**: 本地AI管道 7/15 9AM首次自动执行，预计新增11+目标
+#### Batch 2 (2026-07-21) — Framework-Level
+| 报告 | 目标 | 漏洞 | CVSS | Case ID | Status |
+|------|------|------|------|---------|--------|
+| AutoGen P1-PATH | AutoGen magentic-one-cli | Path Traversal via user-controlled file path | 9.8 | CORRECTOVER-2026-001 | ✅ CONFIRMED |
+| Semantic Kernel readOnlyHint | Semantic Kernel MCP | readOnlyHint parsed but not enforced | 7.5 | CORRECTOVER-2026-004 | ✅ CONFIRMED |
 
 ---
 
-### 6. 阿里云 ASRC — 邮件提交 security@service.alibaba.com
+### 6. 阿里云 ASRC — Email to security@service.alibaba.com
 
 | 批次 | 目标 | 提交日期 | 状态 |
 |------|------|---------|------|
-| Spring AI Alibaba (6个漏洞) | Spring AI Alibaba框架 | 2026-07-13 | Under Review |
+| Spring AI Alibaba (6 vulns) | Spring AI Alibaba framework | 2026-07-13 | Under Review |
 
 ---
 
-### 7. Apple Security — Portal提交
+### 7. Apple Security — Portal
 
 | 报告 | 目标 | 漏洞 | CVSS | 状态 |
 |------|------|------|------|------|
-| AppleComputeEnsembler TLS Bypass | macOS | TLS零验证，MITM可拦截Apple Intelligence推理数据 | 9.8 | Under Review |
+| AppleComputeEnsembler TLS Bypass | macOS | TLS zero-validation, MITM can intercept Apple Intelligence data | 9.8 | Under Review |
+
+---
+
+### 8. Financial Outreach (2026-07-21)
+
+| Batch | 目标 | 方式 | 日期 | 状态 |
+|-------|------|------|------|------|
+| Batch 1 | Dukascopy (info@) + Duco (security@, info@) | Email — Security Audit Pitch | 2026-07-21 | ✅ Sent |
+| Batch 2 | Dukascopy (security@, dpo@) + UniCredit CISO + Mambu + Blend Labs (vuln report) | Email — Vuln Report + Audit Pitch | 2026-07-21 | ✅ Sent |
+| Citi Notification | opensource@citi.com (FINOS AIGF) | Email — H1 #3878033 notification | 2026-07-21 | ✅ Sent |
+| SAP | SAP Security Response Portal | AutoGen P1-PATH + readOnlyHint | — | ⏳ Portal unreachable (needs VPN) |
+| TSRC | Tencent Cloud TI-ONE (Dify) | Dify P1-PATH | — | ⏳ ZDI covers this |
+| JPCERT/CC | Mizuho Financial Group | Dify P1-PATH | — | ⏳ ZDI covers this |
 
 ---
 
 ## 🔄 Update Protocol
 
-### 提交前防重复检查
-**每次新提交前必须搜索本文件**：
-1. 搜目标名称/域名
-2. 搜漏洞类型
-3. 搜CVE编号（如有）
-→ 找到匹配项则跳过或合并
+### Pre-submission Duplicate Check
+Search this file before every new submission:
+1. Target name/domain
+2. Vulnerability type
+3. CVE ID (if any)
+-> Skip or merge if match found
 
-### 自动更新规则
-- **本地AI管道 (MSRC)**: 每次提交后自动追加到 §5
-- **Coze Agent**: 每次手动提交后更新状态
-- **ZDI Portal**: 每30min检查状态变化
-- **HackerOne**: 每次检查时更新报告状态
+### Auto-Update Rules
+- **Local AI Pipeline (MSRC)**: Append to §5 after each submission
+- **ZDI Portal**: Check status every 30 min
+- **HackerOne**: Update report status on check
 
-### 状态定义
-| 状态 | 含义 |
-|------|------|
-| SUBMITTED | 已提交，等待响应 |
-| OPEN | ZDI专用，等待triage |
-| TRIAGE | 审核中 |
-| ACCEPTED | 已接受，等待CVE/赏金 |
-| REJECTED | 已拒绝 |
-| DUPLICATE | 重复提交 |
-| NEEDS_REDIRECT | 需改道其他渠道 |
-| PAID | 赏金已到账 |
-| CLOSED | 已关闭 |
+### Status Definitions
+| Status | Meaning |
+|--------|---------|
+| SUBMITTED | Submitted, awaiting response |
+| OPEN | ZDI: awaiting triage |
+| TRIAGE | Under review |
+| ACCEPTED | Accepted, awaiting CVE/bounty |
+| REJECTED | Rejected |
+| DUPLICATE | Duplicate submission |
+| NEEDS_REDIRECT | Needs re-routing to another channel |
+| PAID | Bounty received |
+| CLOSED | Case closed |
+| CONFIRMED | MSRC confirmed valid |
+| ACTIVE | H1 report is active |
 
-### 提交渠道定义
-| 渠道 | 提交方式 | 备注 |
-|------|---------|------|
-| ZDI | Portal提交 | 排他期~30天，期间不可转投 |
-| HackerOne | Web提交 | 需登录账号 |
-| GitHub Advisory | Web提交 | 直接提交给仓库维护者 |
-| huntr.dev | Web表单 | 无API，需手动 |
+### Submission Channels
+| Channel | Method | Notes |
+|---------|--------|-------|
+| ZDI | Portal | ~30 day embargo |
+| HackerOne | Web (CDP) | CDP automation via Chrome v150 |
+| GitHub Advisory | Web | Direct to maintainer |
+| huntr.dev | Web form | Manual only |
 | MSRC | Email | security@microsoft.com |
 | ASRC | Email | security@service.alibaba.com |
 | Apple | Portal | security.apple.com/submit |
-| Bugcrowd | Web提交 | 需登录账号 |
+| Bugcrowd | Web | Login required |
 
 ---
 
 ## 📅 Daily Reconciliation
-- **09:00 CST** — 本地AI管道执行后自动汇总
-- **12:00 CST** — Coze Agent 30min检查时同步
-- **End of Day** — 全渠道状态汇总，更新Dashboard
+- **09:00 CST** — Local AI pipeline auto-summary
+- **End of Day** — Full channel status update
 
 ---
 
